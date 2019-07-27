@@ -1,0 +1,9 @@
+*.log
+log
+log.*
+
+*.txt
+*.pyc
+*.sh
+
+config.py

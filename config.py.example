@@ -1,0 +1,8 @@
+PRJ_CONFIG = {
+    'path' : '/home/bluebear/projects/python/clubg/',
+    'request_url' : 'https://www.bandaimall.co.kr/premium/index.do',
+    'base_url' : 'https://www.bandaimall.co.kr',
+    'email_id' : 'XXXX@gmail.com',
+    'email_pw' : 'XXXX',
+    'to_email_id' : 'YYYY@gmail.com'
+}
