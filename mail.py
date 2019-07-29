@@ -8,7 +8,11 @@ from email.mime.text import MIMEText
 from datetime import datetime
 
 def mail(from_user, from_pwd, to_user, subject, text):
-    msg = MIMEText(text)
+    try:
+        msg = MIMEText(text)
+    except Exception:
+        msg = MIMEText(text.encode('utf-8'))
+    
  
     msg['From'] = from_user
     msg['To'] = to_user
