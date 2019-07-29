@@ -52,29 +52,20 @@ def soup():
     print('data path: {}'.format(fName))
     if os.path.exists(fName):
 
-        # 사이트의 비정상 동작으로 잘못 크롤링 된 경우 빈 파일이 생기게 되는데, 이후 제대로 크롤링 되었을때 빈파일이 있는 경우에 동작하도록 방어코딩  
         with open(fName, 'r') as f:
             try:
-                if len(f.readlines()) == 0 :
-                    checkResult = True
+                fileList = f.read().splitlines()
             except :
                 print('File Read Exception Occurred')
 
-        with open(fName, 'r') as f:
-            try:
-                while True:
-                    line = f.readline()
-                    if not line:
-                        break
+        if fileList:
+            compList = set(fileList) & set(linkList)
+            if (len(compList) == len(set(fileList)) and len(compList) == len(set(linkList))):
+                print("Already exists")
+                checkResult= False
+        else:
+            checkResult= True
 
-                    linkSet = set(linkList)
-                    if line.strip() in linkSet:
-                        print("Already exists")
-                    else :
-                        print("Not exists")
-                        checkResult = True
-            except :
-                print('File Read Exception Occurred')
     else :
         checkResult = True
 
