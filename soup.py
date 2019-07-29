@@ -24,19 +24,14 @@ def soup():
 
     for item in banners:
 	
-	   #print(item)
-    	
         print(config.PRJ_CONFIG['base_url'] + item.find('a').get('href'))
-    	contentList.append(config.PRJ_CONFIG['base_url'] + item.find('a').get('href'))
+        contentList.append(config.PRJ_CONFIG['base_url'] + item.find('a').get('href'))
         linkList.append(config.PRJ_CONFIG['base_url'] + item.find('a').get('href'))
-    	
-    	#print(item.find('img').get('src'))
-        	#contentList.append(item.find('img').get('src'))
-        	
-    	spans = item.findAll('span')
-    	for span in spans:
-    	    print(span.text.encode('utf-8'))
-    	    contentList.append(span.text)
+
+        spans = item.findAll('span')
+        for span in spans:
+            print(span.text)
+            contentList.append(span.text)
         
         '''	
     	regex = re.compile(r'\d\d\d\d/\d\d/\d\d')
@@ -50,10 +45,11 @@ def soup():
     		checkResult = True
     	'''
 
-    	print('\n')
-    	contentList.append('\n')
+        print('\n')
+        contentList.append('\n')
 
-    fName = config.PRJ_CONFIG['path'] + "data.txt"
+    fName = os.path.join(config.PRJ_CONFIG['path'], "data.txt")
+    print('data path: {}'.format(fName))
     if os.path.exists(fName):
 
         # 사이트의 비정상 동작으로 잘못 크롤링 된 경우 빈 파일이 생기게 되는데, 이후 제대로 크롤링 되었을때 빈파일이 있는 경우에 동작하도록 방어코딩  
@@ -82,29 +78,32 @@ def soup():
     else :
         checkResult = True
 
-    print("linkList : " + str(len(linkList)))
-    print("checkResult : " + str(checkResult))
-    if len(linkList) != 0 & checkResult == True :
+    print("linkList : {}".format(len(linkList)))
+    print("checkResult : {}".format(checkResult))
+    if linkList and checkResult:
 
         # Write newest link to file
         with open(fName, 'w') as f:
             try:
                 for data in linkList:
-                    f.write(data.encode("utf-8") + '\n')
+                    f.write(data + '\n')
                 f.close()
             except IOError as e:
                 print('File Write Exception Occurred')
-                print "I/O error({0}): {1}".format(e.errno, e.strerror)
+                print("I/O error({0}): {1}".format(e.errno, e.strerror))
         
         # Send E-Mail
-	    content = [n.encode('utf-8')+'\n' for n in contentList]
-        mail(config.PRJ_CONFIG['email_id'], config.PRJ_CONFIG['email_pw'], config.PRJ_CONFIG['to_email_id'], "Notification : " + datetime.today().strftime("%Y%m%d%H%M%S"), ''.join(content))
-    	print("Mail Send!!")
+        content = [n + '\n' for n in contentList]
+        mail(config.PRJ_CONFIG['email_id'],
+             config.PRJ_CONFIG['email_pw'],
+             config.PRJ_CONFIG['to_email_id'],
+             "Notification : {}".format(datetime.today().strftime("%Y%m%d%H%M%S")),
+             ''.join(content))
+        print("Mail Send!!")
         fileLog("Mail Send!!")
-
-    else :
+    else:
         print("Mail Not Send!!")
-    	fileLog("Mail Not Send!!")
+        fileLog("Mail Not Send!!")
 
 
 if __name__ == "__main__":

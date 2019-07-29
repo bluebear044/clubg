@@ -1,5 +1,7 @@
+import os
+
 PRJ_CONFIG = {
-    'path' : '/home/bluebear/projects/python/clubg/',
+    'path' : os.getcwd(),
     'request_url' : 'https://www.bandaimall.co.kr/premium/index.do',
     'base_url' : 'https://www.bandaimall.co.kr',
     'email_id' : 'XXXX@gmail.com',
