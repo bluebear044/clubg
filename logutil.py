@@ -10,7 +10,7 @@ def fileLog(content) :
 
 	formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-	file_handler = handlers.TimedRotatingFileHandler(filename=os.path.join(config.PRJ_CONFIG['path'], 'log'), when='midnight', interval=1, encoding='utf-8')
+	file_handler = handlers.TimedRotatingFileHandler(filename=os.path.join(config.PRJ_CONFIG['log_path'], 'log'), when='midnight', interval=1, encoding='utf-8')
 	file_handler.setFormatter(formatter)
 	file_handler.suffix = "%Y%m%d"
 	
