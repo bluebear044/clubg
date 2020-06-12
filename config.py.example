@@ -1,7 +1,6 @@
-import os
-
 PRJ_CONFIG = {
-    'path' : os.getcwd(),
+    'path' : '/home/YYYY/projects/python/clubg/',
+    'log_path' : '/home/YYYY/projects/python/clubg/logs/',
     'request_url' : 'https://www.bandaimall.co.kr/premium/index.do',
     'base_url' : 'https://www.bandaimall.co.kr',
     'email_id' : 'XXXX@gmail.com',
