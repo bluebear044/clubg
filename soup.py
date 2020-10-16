@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 class Soup:
 
     def reqUrl(self, url):
-        data = requests.get(config.PRJ_CONFIG['request_url'])
+        data = requests.get(url, verify=False)
         html = data.text.encode('utf-8')
         return html
 
