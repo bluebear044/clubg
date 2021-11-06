@@ -28,7 +28,7 @@ class Soup:
     def main(self):
         html = self.reqUrl(config.PRJ_CONFIG['request_url'])
         soup = BeautifulSoup(html, 'html.parser')
-        banners = soup.find_all(class_='reserve_ban')
+        banners = soup.find_all(class_='item ing animation_scale_back')
         #yesterday = datetime.today() - timedelta(days=1)
         #yesterdayNum = int(yesterday.strftime('%Y%m%d'))
         checkResult = False
@@ -36,14 +36,20 @@ class Soup:
         linkList = []
 
         for item in banners:
-    	
-            contentList.append(config.PRJ_CONFIG['base_url'] + item.find('a').get('href'))
-            linkList.append(config.PRJ_CONFIG['base_url'] + item.find('a').get('href'))
 
-            spans = item.findAll('span')
-            for span in spans:
-                contentList.append(span.text)
+            contentList.append(config.PRJ_CONFIG['base_url'] + item.get('href').replace('..',''))
+            linkList.append(config.PRJ_CONFIG['base_url'] + item.get('href').replace('..',''))
+
+            divs = item.findAll('div')
+
+            item_name = divs[1].find('p', class_='name').get_text()
+            item_price = divs[1].find('p', class_='price').get_text()
+            item_text = divs[2].find('p', class_='text').get_text()
             
+            contentList.append(item_name)
+            contentList.append(item_text)
+            contentList.append(item_price)
+
             '''	
         	regex = re.compile(r'\d\d\d\d/\d\d/\d\d')
         	matchobj = regex.search(item.text)
